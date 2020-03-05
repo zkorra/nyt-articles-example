@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Card, Grid, Image, Icon, Button } from 'semantic-ui-react'
+import { Card, Grid, Image, Icon, Button, GridRow } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import SearchBar from '../search/SearchBar'
 
 export default class Home extends Component {
 
@@ -19,14 +20,19 @@ export default class Home extends Component {
         let currentState = this.state.articles
         fetch(`https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=BNo7OVOfOzlQaP1AGGoDA4NScDqcWurb`)
             .then((res) => res.json())
-            .then((json) => this.setState({articles: currentState.concat(json.results)}))
+            .then((json) => this.setState({ articles: currentState.concat(json.results) }))
     }
 
     render() {
         return (
             <Grid textAlign='center'>
-                {console.log(this.state.articles)}
+                
+                <GridRow>
+                    <SearchBar />
+                </GridRow>
+
                 <Grid.Column mobile={16} tablet={7} computer={7}>
+
                     {this.state.articles
                         .map((article, index) => {
                             return (
