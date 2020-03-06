@@ -1,11 +1,12 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Search, Grid, Dropdown } from 'semantic-ui-react'
+import { Search, Grid, Dropdown, Button, Input } from 'semantic-ui-react'
 
 export default class SearchBar extends Component {
 
     constructor(props) {
         super(props)
+        this.inputRef = React.createRef()
         this.state = {
             articles: [],
             query: '',
@@ -25,20 +26,23 @@ export default class SearchBar extends Component {
             fetch(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query}&sort=${sort}&api-key=BNo7OVOfOzlQaP1AGGoDA4NScDqcWurb`)
                 .then((res) => res.json())
                 .then((json) => this.setState({ articles: json.response.docs }))
-                .then(() => this.setState({ 
-                    isLoading: false 
+                .then(() => this.setState({
+                    isLoading: false
                 }))
         } else {
-            this.setState({ 
+            this.setState({
                 articles: [],
                 isLoading: false
             })
         }
     }
 
-    resultRenderer = ({ uri }) => {
+    resultRenderer = ({ headline, pub_date }) => {
         return (
-            <div>{uri}</div>
+            <div>
+                {headline.main} and
+                {pub_date}
+            </div>
         );
     }
 
@@ -51,6 +55,7 @@ export default class SearchBar extends Component {
     }
 
     onFilterChange = (e, { value }) => {
+        this.inputRef.current.focus()
         let query = this.state.query
         if (query.length > 1) {
             this.setState({
@@ -69,12 +74,16 @@ export default class SearchBar extends Component {
             { key: 'r', text: 'relevance', value: 'relevance' },
             { key: 'n', text: 'newest', value: 'newest' },
             { key: 'o', text: 'oldest', value: 'oldest' }
-          ];
+        ];
 
         return (
             <Grid>
+                {/* {console.log(this.state.articles)} */}
                 <Grid.Row>
                     <Search
+                        input= {{
+                            ref: this.inputRef
+                        }}
                         loading={this.state.isLoading}
                         onSearchChange={_.debounce(this.onSearchChange, 500)}
                         results={this.state.articles}
