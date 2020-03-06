@@ -18,7 +18,7 @@ export default class Home extends Component {
 
     fetchArticles = () => {
         let currentState = this.state.articles
-        fetch(`https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=BNo7OVOfOzlQaP1AGGoDA4NScDqcWurb`)
+        fetch(`https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=BNo7OVOfOzlQaP1AGGoDA4NScDqcWurb`)
             .then((res) => res.json())
             .then((json) => this.setState({ articles: currentState.concat(json.results) }))
     }
@@ -26,18 +26,17 @@ export default class Home extends Component {
     render() {
         return (
             <Grid textAlign='center'>
-                
+
                 <GridRow>
                     <SearchBar />
                 </GridRow>
 
                 <Grid.Column mobile={16} tablet={7} computer={7}>
-
                     {this.state.articles
                         .map((article, index) => {
                             return (
                                 <div key={index}>
-                                    <Link to={`/booking/${article.slug_name}`}>
+                                    <Link to={{ pathname: '/article', data: article }}>
                                         <Card link fluid>
                                             {/* <Image src={article.pictureurl} wrapped /> */}
                                             <Card.Content>
@@ -54,7 +53,7 @@ export default class Home extends Component {
                             )
                         })}
                 </Grid.Column>
-            </Grid>
+            </Grid >
         );
     }
 
