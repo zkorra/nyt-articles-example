@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Search, Icon, Grid, Dropdown, GridColumn } from 'semantic-ui-react'
+import { Search, Grid, Dropdown } from 'semantic-ui-react'
 
 export default class SearchBar extends Component {
 
@@ -25,7 +25,9 @@ export default class SearchBar extends Component {
             fetch(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query}&sort=${sort}&api-key=BNo7OVOfOzlQaP1AGGoDA4NScDqcWurb`)
                 .then((res) => res.json())
                 .then((json) => this.setState({ articles: json.response.docs }))
-                .then(() => this.setState({ isLoading: false }))
+                .then(() => this.setState({ 
+                    isLoading: false 
+                }))
         } else {
             this.setState({ 
                 articles: [],
@@ -34,9 +36,9 @@ export default class SearchBar extends Component {
         }
     }
 
-    resultRenderer = ({ abstract }) => {
+    resultRenderer = ({ uri }) => {
         return (
-            <div>{abstract}</div>
+            <div>{uri}</div>
         );
     }
 
@@ -60,8 +62,6 @@ export default class SearchBar extends Component {
         })
         this.updateArticles()
     }
-
-    handleResultSelect = (e, { result }) => this.setState({ value: result.title })
 
     render() {
 
@@ -88,9 +88,8 @@ export default class SearchBar extends Component {
                         button
                         className='icon'
                         options={filters}
-                        onChange={this.onFilterChange}
-                    >
-                    </Dropdown>
+                        onChange={_.debounce(this.onFilterChange, 500)}
+                    />
                 </Grid.Row>
             </Grid>
         );
