@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import moment from 'moment'
-import { Card, Grid, Image, Icon, Button } from 'semantic-ui-react'
+import { Card, Grid, Image, Icon, Button, Container } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import SearchBar from '../search/SearchBar'
 
@@ -21,7 +21,8 @@ export default class Home extends Component {
 
     fetchArticles = () => {
         let pageCount = this.state.page
-        fetch(`https://api.nytimes.com/svc/search/v2/articlesearch.json?page=${pageCount}&api-key=BNo7OVOfOzlQaP1AGGoDA4NScDqcWurb`)
+        let dateNow = moment().format("YYYYMMDD")
+        fetch(`https://api.nytimes.com/svc/search/v2/articlesearch.json?page=${pageCount}&end_date=${dateNow}&sort=newest&api-key=BNo7OVOfOzlQaP1AGGoDA4NScDqcWurb`)
             .then((res) => res.json())
             .then((json) => this.setState({ articles: json.response.docs }))
     }
@@ -76,18 +77,27 @@ export default class Home extends Component {
                                         <Card className='margin-bottom' link fluid>
                                             {/* <Image src={article.media[0]} wrapped /> */}
                                             <Card.Content>
-                                                <Card.Header as='h3' textAlign='left'>
+                                                <Card.Header textAlign='left'>
                                                     {article.headline.main}
                                                 </Card.Header>
-                                                <Card.Meta as='h3' textAlign='left'>
-                                                    {article.byline.original}
+                                                <Card.Meta textAlign='left'>
+                                                    {article.section_name}
                                                 </Card.Meta>
                                                 <Card.Description textAlign='left'>
-                                                    {/* {article.abstract} */}
+                                                    {article.abstract}
                                                 </Card.Description>
                                             </Card.Content>
-                                            <Card.Content textAlign='right' extra>
-                                                {PublishDate}
+                                            <Card.Content extra>
+                                                <Grid >
+                                                    <Grid.Row columns={2}>
+                                                        <Grid.Column textAlign='left'>
+                                                            {article.byline.original}
+                                                        </Grid.Column>
+                                                        <Grid.Column textAlign='right'>
+                                                            {PublishDate}
+                                                        </Grid.Column>
+                                                    </Grid.Row>
+                                                </Grid>
                                             </Card.Content>
                                         </Card>
                                     </Link>
