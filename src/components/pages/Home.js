@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
+import moment from 'moment'
 import { Card, Grid, Image, Icon, Button, GridRow } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import SearchBar from '../search/SearchBar'
@@ -48,9 +49,9 @@ export default class Home extends Component {
         if (this.state.articles.length !== 0) {
             ButtonGroup =
                 <Button.Group compact basic>
-                    <Button icon='angle left' onClick={_.debounce(this.handlePreviousPage, 500)} disabled={this.state.page === 0} />
+                    <Button icon='angle left' onClick={_.debounce(this.handlePreviousPage, 2000)} disabled={this.state.page === 0} />
                     <Button content={this.state.page + 1} />
-                    <Button icon='angle right' onClick={_.debounce(this.handleNextPage, 500)} disabled={this.state.page === 100} />
+                    <Button icon='angle right' onClick={_.debounce(this.handleNextPage, 2000)} disabled={this.state.page === 100} />
                 </Button.Group>
         }
 
@@ -66,10 +67,13 @@ export default class Home extends Component {
                 <Grid.Column mobile={16} tablet={7} computer={7}>
                     {this.state.articles
                         .map((article, index) => {
+
+                            let PublishDate = moment(new Date(article.pub_date)).format('D MMM YYYY [at] h:mm A')
+
                             return (
                                 <div key={index}>
                                     <Link to={{ pathname: '/article', data: article }}>
-                                        <Card link fluid>
+                                        <Card className='margin-bottom' link fluid>
                                             {/* <Image src={article.media[0]} wrapped /> */}
                                             <Card.Content>
                                                 <Card.Header as='h3' textAlign='left'>
@@ -83,7 +87,7 @@ export default class Home extends Component {
                                                 </Card.Description>
                                             </Card.Content>
                                             <Card.Content textAlign='right' extra>
-                                                {article.pub_date}
+                                                {PublishDate}
                                             </Card.Content>
                                         </Card>
                                     </Link>
@@ -91,7 +95,7 @@ export default class Home extends Component {
                             )
                         })}
 
-                        {ButtonGroup}
+                    {ButtonGroup}
 
                 </Grid.Column>
             </Grid >
