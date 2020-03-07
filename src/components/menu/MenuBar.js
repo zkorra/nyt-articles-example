@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Menu, Header, Image } from 'semantic-ui-react'
 
 export default class MenuBar extends Component {
     render() {
-        return(
-            <div>
-                
-            </div>
+        return (
+            <Menu size='tiny'>
+                <Menu.Item href='/' link>
+                    <Image src={require('../img/newspaper.png')} size='mini' />
+                </Menu.Item>
+                <Menu.Item href='/' link>
+                    <Header size='small'>Discover</Header>
+                </Menu.Item>
+            </Menu>
         );
     }
 
