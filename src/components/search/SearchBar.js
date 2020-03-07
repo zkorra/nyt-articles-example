@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Search, Grid, Dropdown, Button, Input } from 'semantic-ui-react'
+import moment from 'moment'
+import { Search, Grid, Dropdown, Icon, Item, Select } from 'semantic-ui-react'
 
 export default class SearchBar extends Component {
 
@@ -37,12 +38,20 @@ export default class SearchBar extends Component {
         }
     }
 
-    resultRenderer = ({ headline, pub_date }) => {
+    resultRenderer = ({ headline, snippet, pub_date }) => {
+
+        let PublishDate = moment(new Date(pub_date)).format('D MMM YYYY')
+
         return (
-            <div>
-                {headline.main} and
-                {pub_date}
-            </div>
+            <Item.Group>
+                <Item>
+                    <Item.Content>
+                        <Item.Header>{headline.main}</Item.Header>
+                        <Item.Meta>{snippet}</Item.Meta>
+                        <Item.Extra>{PublishDate}</Item.Extra>
+                    </Item.Content>
+                </Item>
+            </Item.Group>
         );
     }
 
@@ -71,31 +80,35 @@ export default class SearchBar extends Component {
     render() {
 
         const filters = [
-            { key: 'r', text: 'relevance', value: 'relevance' },
-            { key: 'n', text: 'newest', value: 'newest' },
-            { key: 'o', text: 'oldest', value: 'oldest' }
+            { key: 'r', text: 'Relevance', value: 'relevance' },
+            { key: 'n', text: 'Newest', value: 'newest' },
+            { key: 'o', text: 'Oldest', value: 'oldest' }
         ];
 
         return (
-            <Grid>
-                {/* {console.log(this.state.articles)} */}
+            <Grid centered>
                 <Grid.Row>
-                    <Search
-                        input= {{
-                            ref: this.inputRef
-                        }}
-                        loading={this.state.isLoading}
-                        onSearchChange={_.debounce(this.onSearchChange, 500)}
-                        results={this.state.articles}
-                        resultRenderer={this.resultRenderer}
-                    />
+                    <Grid.Column mobile={13} tablet={6} computer={6} >
+                        <Search
+                            fluid
+                            input={{
+                                fluid: true,
+                                ref: this.inputRef
+                            }}
+                            loading={this.state.isLoading}
+                            onSearchChange={_.debounce(this.onSearchChange, 500)}
+                            results={this.state.articles}
+                            resultRenderer={this.resultRenderer}
+                        />
+                    </Grid.Column>
                     <Dropdown
-                        text='Filter'
+                        basic
+                        text=' '
                         icon='filter'
                         floating
-                        labeled
                         button
-                        className='icon'
+                        className='icon border-circular'
+                        pointing='top left'
                         options={filters}
                         onChange={_.debounce(this.onFilterChange, 500)}
                     />
