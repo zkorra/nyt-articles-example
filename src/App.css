@@ -2,8 +2,14 @@
   margin-bottom: 1rem !important;
 }
 
+.border-circular {
+  border-radius: 50% !important;
+}
+
 .App {
   text-align: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .App-logo {

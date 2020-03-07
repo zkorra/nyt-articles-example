@@ -57,58 +57,56 @@ export default class Home extends Component {
         }
 
         return (
-            <Grid textAlign='center'>
+            <div>
 
-                <Grid.Row>
-                    <SearchBar />
-                </Grid.Row>
+                <SearchBar />
 
-                {console.log(this.state)}
+                <Grid textAlign='center'>
+                    <Grid.Column mobile={16} tablet={8} computer={8}>
+                        {this.state.articles
+                            .map((article, index) => {
 
-                <Grid.Column mobile={16} tablet={7} computer={7}>
-                    {this.state.articles
-                        .map((article, index) => {
+                                let PublishDate = moment(new Date(article.pub_date)).format('D MMM YYYY [at] h:mm A')
 
-                            let PublishDate = moment(new Date(article.pub_date)).format('D MMM YYYY [at] h:mm A')
+                                return (
+                                    <div key={index}>
+                                        <Link to={{ pathname: '/article', data: article }}>
+                                            <Card className='margin-bottom' link fluid>
+                                                {/* <Image src={article.media[0]} wrapped /> */}
+                                                <Card.Content>
+                                                    <Card.Header textAlign='left'>
+                                                        {article.headline.main}
+                                                    </Card.Header>
+                                                    <Card.Meta textAlign='left'>
+                                                        {article.section_name}
+                                                    </Card.Meta>
+                                                    <Card.Description textAlign='left'>
+                                                        {article.abstract}
+                                                    </Card.Description>
+                                                </Card.Content>
+                                                <Card.Content extra>
+                                                    <Grid >
+                                                        <Grid.Row columns={2}>
+                                                            <Grid.Column textAlign='left'>
+                                                                {article.byline.original}
+                                                            </Grid.Column>
+                                                            <Grid.Column textAlign='right'>
+                                                                {PublishDate}
+                                                            </Grid.Column>
+                                                        </Grid.Row>
+                                                    </Grid>
+                                                </Card.Content>
+                                            </Card>
+                                        </Link>
+                                    </div>
+                                )
+                            })}
 
-                            return (
-                                <div key={index}>
-                                    <Link to={{ pathname: '/article', data: article }}>
-                                        <Card className='margin-bottom' link fluid>
-                                            {/* <Image src={article.media[0]} wrapped /> */}
-                                            <Card.Content>
-                                                <Card.Header textAlign='left'>
-                                                    {article.headline.main}
-                                                </Card.Header>
-                                                <Card.Meta textAlign='left'>
-                                                    {article.section_name}
-                                                </Card.Meta>
-                                                <Card.Description textAlign='left'>
-                                                    {article.abstract}
-                                                </Card.Description>
-                                            </Card.Content>
-                                            <Card.Content extra>
-                                                <Grid >
-                                                    <Grid.Row columns={2}>
-                                                        <Grid.Column textAlign='left'>
-                                                            {article.byline.original}
-                                                        </Grid.Column>
-                                                        <Grid.Column textAlign='right'>
-                                                            {PublishDate}
-                                                        </Grid.Column>
-                                                    </Grid.Row>
-                                                </Grid>
-                                            </Card.Content>
-                                        </Card>
-                                    </Link>
-                                </div>
-                            )
-                        })}
+                        {ButtonGroup}
 
-                    {ButtonGroup}
-
-                </Grid.Column>
-            </Grid >
+                    </Grid.Column>
+                </Grid >
+            </div>
         );
     }
 
