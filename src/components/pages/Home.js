@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import moment from 'moment'
-import { Card, Grid, Image, Icon, Button, GridRow } from 'semantic-ui-react'
+import { Card, Grid, Image, Icon, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import SearchBar from '../search/SearchBar'
 
@@ -58,9 +58,9 @@ export default class Home extends Component {
         return (
             <Grid textAlign='center'>
 
-                <GridRow>
+                <Grid.Row>
                     <SearchBar />
-                </GridRow>
+                </Grid.Row>
 
                 {console.log(this.state)}
 
