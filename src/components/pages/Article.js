@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Grid, Image, Icon, Button } from 'semantic-ui-react'
+import moment from 'moment'
 
 export default class Article extends Component {
 
@@ -31,18 +32,16 @@ export default class Article extends Component {
 
         const { article } = this.state
 
-
-        console.log(article)
+        let PublishDate = moment(new Date(article.publish)).format('D MMM YYYY [at] h:mm A')
 
         return (
             <Grid centered>
                 <Grid.Column mobile={15} tablet={9} computer={9}>
 
                     <Card fluid>
-                        {/* <Image src={this.state.pictureurl} wrapped /> */}
                         <Card.Content>
-                            <Card.Header textAlign='center'>
-                                {article.headline && article.headline.main}
+                            <Card.Header textAlign='left'>
+                                {article.title}
                             </Card.Header>
                         </Card.Content>
                         <Card.Content>
@@ -50,13 +49,13 @@ export default class Article extends Component {
                                 {article.abstract}
                             </Card.Description>
                         </Card.Content>
-                        <Card.Content as='h6' textAlign='left'>
-                            <Icon name='tag' />
-                            {/* {price} THB / DAY */}
-                        <Button href={article.web_url} floated='right' color='blue' animated>
-                                <Button.Content visible>Continue Reading</Button.Content>
+                        <Card.Content textAlign='left'>
+                            <Icon name='calendar alternate outline' />
+                            {PublishDate}
+                            <Button href={article.url} floated='right' compact basic animated='fade'>
+                                <Button.Content visible>Full Article</Button.Content>
                                 <Button.Content hidden>
-                                    <Icon name='paper plane right' />
+                                    <Icon name='world' />
                                 </Button.Content>
                             </Button>
                         </Card.Content>
