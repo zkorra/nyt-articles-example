@@ -88,7 +88,7 @@ export default class SearchBar extends Component {
         return (
             <Grid centered>
                 <Grid.Row>
-                    <Grid.Column mobile={13} tablet={6} computer={6} >
+                    <Grid.Column mobile={13} tablet={8} computer={8} >
                         <Search
                             fluid
                             input={{
