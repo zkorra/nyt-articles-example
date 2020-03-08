@@ -115,6 +115,7 @@ export default class Home extends Component {
                                                     data: {
                                                         title: article.headline.main,
                                                         section: article.section_name,
+                                                        subsection: article.subsection_name,
                                                         abstract: article.abstract,
                                                         byline: article.byline.original,
                                                         publish: article.pub_date,
@@ -127,7 +128,7 @@ export default class Home extends Component {
                                                                 {article.headline.main}
                                                             </Card.Header>
                                                             <Card.Meta textAlign='left'>
-                                                                {article.section_name}
+                                                                {article.section_name}, {article.subsection_name}
                                                             </Card.Meta>
                                                             <Card.Description textAlign='left'>
                                                                 {article.abstract}
