@@ -76,7 +76,6 @@ export default class Popular extends Component {
                 </Header><br />
 
                 <Grid columns={4}>
-                    {console.log(this.state.popularArticles)}
                     {this.state.popularArticles
                         .map((article, index) => {
                             if (index >= startArticle && index <= endArticle) {
