@@ -4,7 +4,7 @@ import moment from 'moment'
 import { Card, Grid, Icon, Button, Header, Loader, Modal } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-export default class Home extends Component {
+export default class Lastest extends Component {
 
     constructor(props) {
         super(props)
