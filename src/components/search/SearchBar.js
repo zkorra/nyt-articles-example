@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 import { Search, Grid, Dropdown, Icon, Item, Select } from 'semantic-ui-react'
 
 export default class SearchBar extends Component {
@@ -38,20 +39,39 @@ export default class SearchBar extends Component {
         }
     }
 
-    resultRenderer = ({ headline, snippet, pub_date }) => {
+    resultRenderer = ({
+        headline,
+        section_name,
+        abstract,
+        byline,
+        pub_date,
+        web_url,
+        snippet }) => {
 
         let PublishDate = moment(new Date(pub_date)).format('D MMM YYYY')
 
         return (
-            <Item.Group>
-                <Item>
-                    <Item.Content>
-                        <Item.Header>{headline.main}</Item.Header>
-                        <Item.Meta>{snippet}</Item.Meta>
-                        <Item.Extra>{PublishDate}</Item.Extra>
-                    </Item.Content>
-                </Item>
-            </Item.Group>
+            <Link to={{
+                pathname: '/article',
+                data: {
+                    title: headline.main,
+                    section: section_name,
+                    abstract: abstract,
+                    byline: byline.original,
+                    publish: pub_date,
+                    url: web_url
+                }
+            }}>
+                <Item.Group>
+                    <Item>
+                        <Item.Content>
+                            <Item.Header>{headline.main}</Item.Header>
+                            <Item.Meta>{snippet}</Item.Meta>
+                            <Item.Extra>{PublishDate}</Item.Extra>
+                        </Item.Content>
+                    </Item>
+                </Item.Group>
+            </Link>
         );
     }
 
