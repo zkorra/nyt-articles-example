@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import moment from 'moment'
-import { Card, Grid, Divider, Icon, Button, Header, Loader, Modal } from 'semantic-ui-react'
+import { Card, Grid, Divider, Icon, Button, Header, Loader, Modal, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import SearchBar from '../search/SearchBar'
 import PopularArticles from '../articles/Popular'
@@ -79,6 +79,12 @@ export default class Home extends Component {
                 <Grid textAlign='center'>
                     <Grid.Column mobile={16} tablet={14} computer={14}>
 
+                        <Image src={require('../img/nytlogo.png')} className='margin-top' size='tiny' centered />
+
+                        <Header as='h1' textAlign='center'>
+                            <Header.Content>The New York Times</Header.Content>
+                        </Header><br />
+
                         <SearchBar />
 
                         <Header id='popular' as='h2'>
@@ -105,7 +111,7 @@ export default class Home extends Component {
                                         return (
                                             <div key={index}>
                                                 <Link to={{
-                                                    pathname: '/article', 
+                                                    pathname: '/article',
                                                     data: {
                                                         title: article.headline.main,
                                                         section: article.section_name,
