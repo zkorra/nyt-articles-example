@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Grid, Image, Icon, Button } from 'semantic-ui-react'
+import { Card, Grid, Icon, Button } from 'semantic-ui-react'
 import moment from 'moment'
 
 export default class Article extends Component {
@@ -37,7 +37,6 @@ export default class Article extends Component {
         return (
             <Grid centered>
                 <Grid.Column mobile={15} tablet={9} computer={9}>
-
                     <Card fluid>
                         <Card.Content>
                             <Card.Header textAlign='left'>
@@ -64,7 +63,6 @@ export default class Article extends Component {
                             </Button>
                         </Card.Content>
                     </Card>
-
                 </Grid.Column>
             </Grid>
         );
