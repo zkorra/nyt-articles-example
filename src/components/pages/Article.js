@@ -32,7 +32,7 @@ export default class Article extends Component {
 
         const { article } = this.state
 
-        let PublishDate = moment(new Date(article.publish)).format('D MMM YYYY [at] h:mm A')
+        let PublishDate = moment(new Date(article.publish)).format('D MMM YYYY')
 
         return (
             <Grid centered>
@@ -43,10 +43,14 @@ export default class Article extends Component {
                             <Card.Header textAlign='left'>
                                 {article.title}
                             </Card.Header>
-                        </Card.Content>
-                        <Card.Content>
+                            <Card.Meta textAlign='left'>
+                                {article.section}, {article.subsection}
+                            </Card.Meta>
                             <Card.Description textAlign='left'>
                                 {article.abstract}
+                            </Card.Description>
+                            <Card.Description className='margin-top' textAlign='left'>
+                                {article.byline}
                             </Card.Description>
                         </Card.Content>
                         <Card.Content textAlign='left'>

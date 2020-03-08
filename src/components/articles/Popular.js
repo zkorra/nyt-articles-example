@@ -70,7 +70,7 @@ export default class Home extends Component {
         return (
             <div>
                 <Grid columns={4}>
-
+                {console.log(this.state.popularArticles)}
                     {this.state.popularArticles
                         .map((article, index) => {
                             if (index >= startArticle && index <= endArticle) {
@@ -90,6 +90,7 @@ export default class Home extends Component {
                                                     data: {
                                                         title: article.title,
                                                         section: article.section,
+                                                        subsection: article.subsection,
                                                         abstract: article.abstract,
                                                         byline: article.byline,
                                                         publish: article.published_date,
@@ -102,7 +103,7 @@ export default class Home extends Component {
                                                                 {article.title}
                                                             </Card.Header>
                                                             <Card.Meta textAlign='left'>
-                                                                {article.section}
+                                                                {article.section}, {article.subsection}
                                                             </Card.Meta>
                                                             <Card.Description textAlign='left'>
                                                                 {article.abstract}
