@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import { Search, Grid, Dropdown, Icon, Item, Select } from 'semantic-ui-react'
+import { Search, Grid, Dropdown, Item } from 'semantic-ui-react'
 
 export default class SearchBar extends Component {
 
