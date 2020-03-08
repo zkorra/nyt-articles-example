@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import moment from 'moment'
-import { Card, Grid, Button, Transition } from 'semantic-ui-react'
+import { Card, Grid, Button, Transition, Header, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-export default class Home extends Component {
+export default class Popular extends Component {
 
     constructor(props) {
         super(props)
@@ -69,13 +69,19 @@ export default class Home extends Component {
 
         return (
             <div>
+
+                <Header id='popular' as='h2'>
+                    <Icon name='star outline' />
+                    <Header.Content>The Most Popular Articles</Header.Content>
+                </Header><br />
+
                 <Grid columns={4}>
-                {console.log(this.state.popularArticles)}
+                    {console.log(this.state.popularArticles)}
                     {this.state.popularArticles
                         .map((article, index) => {
                             if (index >= startArticle && index <= endArticle) {
 
-                                let PublishDate = moment(new Date(article.published_date)).format('D MMM YYYY')
+                                let PublishDate = moment(new Date(article.published_date)).fromNow()
 
                                 return (
                                     <Transition

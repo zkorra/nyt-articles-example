@@ -106,34 +106,37 @@ export default class SearchBar extends Component {
         ];
 
         return (
-            <Grid centered>
-                <Grid.Row>
-                    <Grid.Column mobile={13} tablet={8} computer={8} >
-                        <Search
-                            fluid
-                            input={{
-                                fluid: true,
-                                ref: this.inputRef
-                            }}
-                            loading={this.state.isLoading}
-                            onSearchChange={_.debounce(this.onSearchChange, 500)}
-                            results={this.state.articles}
-                            resultRenderer={this.resultRenderer}
+            <div>
+                <Grid centered>
+                    <Grid.Row>
+                        <Grid.Column mobile={13} tablet={8} computer={8} >
+                            <Search
+                                fluid
+                                input={{
+                                    fluid: true,
+                                    ref: this.inputRef
+                                }}
+                                loading={this.state.isLoading}
+                                onSearchChange={_.debounce(this.onSearchChange, 500)}
+                                results={this.state.articles}
+                                resultRenderer={this.resultRenderer}
+                            />
+                        </Grid.Column>
+                        <Dropdown
+                            basic
+                            text=' '
+                            icon='filter'
+                            floating
+                            button
+                            className='icon border-circular'
+                            pointing='top left'
+                            options={filters}
+                            onChange={_.debounce(this.onFilterChange, 500)}
                         />
-                    </Grid.Column>
-                    <Dropdown
-                        basic
-                        text=' '
-                        icon='filter'
-                        floating
-                        button
-                        className='icon border-circular'
-                        pointing='top left'
-                        options={filters}
-                        onChange={_.debounce(this.onFilterChange, 500)}
-                    />
-                </Grid.Row>
-            </Grid>
+                    </Grid.Row>
+                    <Grid.Row/>
+                </Grid>
+            </div>
         );
     }
 
