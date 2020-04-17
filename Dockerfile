@@ -1,19 +1,15 @@
-# base image
-FROM node
+FROM node:10-alpine AS alpine
 
-# set working directory
-RUN mkdir /usr/src/app
+WORKDIR /app
 
-# copy all files from current directory to docker
-COPY . /usr/src/app
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json .
 
-WORKDIR /usr/src/app
+## install only the packages defined in the package-lock.json (faster than the normal npm install)
+RUN npm install
 
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+# Copy the contents of the project to the image
+COPY . .
 
-# install and cache app dependencies
-RUN yarn
-
-# start app
-CMD ["npm", "start"]
+# Run 'npm start' when the container starts.
+CMD ["npm", "run", "start"]
